@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPC Team Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: #1a1a24;
+            --bg-elevated: #22222e;
+            --accent-gold: #d4a853;
+            --accent-emerald: #34d399;
+            --accent-sky: #38bdf8;
+            --accent-violet: #a78bfa;
+            --text-primary: #f8f8f8;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border-subtle: rgba(255,255,255,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 40px rgba(212, 168, 83, 0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .card.gold { border-top: 3px solid var(--accent-gold); }
+        .card.emerald { border-top: 3px solid var(--accent-emerald); }
+        .card.sky { border-top: 3px solid var(--accent-sky); }
+
+        .card.gold:hover { border-color: var(--accent-gold); }
+        .card.emerald:hover { border-color: var(--accent-emerald); }
+        .card.sky:hover { border-color: var(--accent-sky); }
+
+        .footer {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.75rem; }
+            .cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">✨</div>
+        <h1>IPC Team Hub</h1>
+        <p class="subtitle">Ignite Positive Changes • Your dashboards in one place</p>
+
+        <div class="cards">
+            <a href="https://alaynaweimer.github.io/IPC-Internal-Program-Tracking-Dashboard/" class="card gold" target="_blank">
+                <div class="card-icon">📊</div>
+                <h2>IPC-IEF Internal</h2>
+                <p>Your business projects across IPC and IEF. Track programs, tasks, and team workload.</p>
+            </a>
+
+            <a href="https://alaynaweimer.github.io/IPC-Consulting-Hub/" class="card emerald" target="_blank">
+                <div class="card-icon">🎯</div>
+                <h2>Consulting Hub</h2>
+                <p>All client work in one view. Filter by client, project, lead, or assignee.</p>
+            </a>
+
+            <a href="https://alaynaweimer.github.io/IPC-Task-Marketplace/" class="card sky" target="_blank">
+                <div class="card-icon">🛒</div>
+                <h2>Task Marketplace</h2>
+                <p>Browse available tasks. Find work that matches your skills and availability.</p>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>Powered by <a href="https://ignitepositivechanges.com" target="_blank">Ignite Positive Changes LLC</a></p>
+        </div>
+    </div>
+</body>
+</html>
