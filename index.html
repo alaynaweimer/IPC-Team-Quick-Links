@@ -34,53 +34,19 @@
             min-height: 100vh;
         }
 
-        /* Rolling Logo Banner */
+        /* Static Logo Banner */
         .logo-banner {
             background: #ffffff;
-            padding: 1rem 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .logo-banner::before,
-        .logo-banner::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 100px;
-            height: 100%;
-            z-index: 2;
-        }
-
-        .logo-banner::before {
-            left: 0;
-            background: linear-gradient(to right, #ffffff, transparent);
-        }
-
-        .logo-banner::after {
-            right: 0;
-            background: linear-gradient(to left, #ffffff, transparent);
+            padding: 1.5rem 1rem;
         }
 
         .logo-track {
             display: flex;
             align-items: center;
-            gap: 4rem;
-            animation: scroll 20s linear infinite;
-            width: max-content;
-        }
-
-        .logo-track:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+            justify-content: center;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .logo-item {
@@ -93,15 +59,19 @@
 
         .logo-item img {
             max-height: 70px;
-            max-width: 200px;
+            max-width: 180px;
             width: auto;
             object-fit: contain;
-            filter: none;
             transition: transform 0.3s ease;
         }
 
         .logo-item img:hover {
             transform: scale(1.05);
+        }
+
+        .logo-item.center img {
+            max-height: 80px;
+            max-width: 220px;
         }
 
         .container {
@@ -286,43 +256,35 @@
                 padding: 1.25rem;
             }
 
-            .logo-item img {
-                max-height: 50px;
-                max-width: 150px;
+            .logo-track {
+                flex-wrap: wrap;
+                gap: 1.5rem;
             }
 
-            .logo-track {
-                gap: 2.5rem;
+            .logo-item img {
+                max-height: 50px;
+                max-width: 120px;
+            }
+
+            .logo-item.center img {
+                max-height: 60px;
+                max-width: 150px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Rolling Logo Banner -->
+    <!-- Logo Banner -->
     <div class="logo-banner">
         <div class="logo-track">
-            <!-- First set of logos -->
-            <div class="logo-item">
-                <img src="images/ipc-logo.png" alt="Ignite Positive Changes">
-            </div>
             <div class="logo-item">
                 <img src="images/ief-logo.png" alt="Ignite Empowerment Foundation">
             </div>
             <div class="logo-item">
                 <img src="images/discover-success.png" alt="Discover Your Success with Alayna Marie">
             </div>
-            <div class="logo-item">
-                <img src="images/BBP_Logo.png" alt="Bearded Bookseller Press">
-            </div>
-            <!-- Duplicate set for seamless loop -->
-            <div class="logo-item">
+            <div class="logo-item center">
                 <img src="images/ipc-logo.png" alt="Ignite Positive Changes">
-            </div>
-            <div class="logo-item">
-                <img src="images/ief-logo.png" alt="Ignite Empowerment Foundation">
-            </div>
-            <div class="logo-item">
-                <img src="images/discover-success.png" alt="Discover Your Success with Alayna Marie">
             </div>
             <div class="logo-item">
                 <img src="images/BBP_Logo.png" alt="Bearded Bookseller Press">
