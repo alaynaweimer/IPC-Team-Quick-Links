@@ -4,157 +4,395 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPC Team Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-card: #1a1a24;
-            --bg-elevated: #22222e;
-            --accent-gold: #d4a853;
-            --accent-emerald: #34d399;
-            --accent-sky: #38bdf8;
-            --accent-violet: #a78bfa;
-            --text-primary: #f8f8f8;
-            --text-secondary: #9ca3af;
-            --text-muted: #6b7280;
-            --border-subtle: rgba(255,255,255,0.08);
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --accent: #8b5cf6;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
+        }
+
+        /* Rolling Logo Banner */
+        .logo-banner {
+            background: #ffffff;
+            padding: 1rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .logo-banner::before,
+        .logo-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .logo-banner::before {
+            left: 0;
+            background: linear-gradient(to right, #ffffff, transparent);
+        }
+
+        .logo-banner::after {
+            right: 0;
+            background: linear-gradient(to left, #ffffff, transparent);
+        }
+
+        .logo-track {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            animation: scroll 20s linear infinite;
+            width: max-content;
+        }
+
+        .logo-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+        }
+
+        .logo-item img {
+            max-height: 70px;
+            max-width: 200px;
+            width: auto;
+            object-fit: contain;
+            filter: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-item img:hover {
+            transform: scale(1.05);
         }
 
         .container {
             max-width: 900px;
-            width: 100%;
-            text-align: center;
+            margin: 0 auto;
+            padding: 2.5rem 1rem;
         }
 
-        .logo {
-            font-size: 3rem;
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header .icon {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-violet));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 3rem;
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
         }
 
-        .cards {
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            padding-left: 0.25rem;
+        }
+
+        /* Scheduling Grid */
+        .scheduling-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 0.5rem;
         }
 
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 2rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .schedule-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .schedule-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .schedule-btn .duration {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .schedule-btn .unit {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 0.25rem;
+        }
+
+        .schedule-btn .label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Dashboard Cards */
+        .cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 10px 40px rgba(212, 168, 83, 0.15);
+            border-color: var(--primary);
+            transform: translateX(4px);
+            background: #253245;
         }
 
         .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 1.75rem;
+            margin-right: 1.25rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            border-radius: 10px;
         }
 
-        .card h2 {
-            font-size: 1.25rem;
+        .card-content {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
+            margin-bottom: 0.25rem;
         }
 
-        .card p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        .card.gold { border-top: 3px solid var(--accent-gold); }
-        .card.emerald { border-top: 3px solid var(--accent-emerald); }
-        .card.sky { border-top: 3px solid var(--accent-sky); }
+        .card-arrow {
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
 
-        .card.gold:hover { border-color: var(--accent-gold); }
-        .card.emerald:hover { border-color: var(--accent-emerald); }
-        .card.sky:hover { border-color: var(--accent-sky); }
+        .card:hover .card-arrow {
+            opacity: 1;
+            color: var(--primary);
+        }
 
         .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--card-border);
             color: var(--text-muted);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
         }
 
         .footer a {
-            color: var(--accent-gold);
+            color: var(--primary);
             text-decoration: none;
         }
 
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 600px) {
-            h1 { font-size: 1.75rem; }
-            .cards { grid-template-columns: 1fr; }
+            .scheduling-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .card {
+                padding: 1.25rem;
+            }
+
+            .logo-item img {
+                max-height: 50px;
+                max-width: 150px;
+            }
+
+            .logo-track {
+                gap: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">✨</div>
-        <h1>IPC Team Hub</h1>
-        <p class="subtitle">Ignite Positive Changes • Your dashboards in one place</p>
-
-        <div class="cards">
-            <a href="https://alaynaweimer.github.io/IPC-Internal-Program-Tracking-Dashboard/" class="card gold" target="_blank">
-                <div class="card-icon">📊</div>
-                <h2>IPC-IEF Internal</h2>
-                <p>Your business projects across IPC and IEF. Track programs, tasks, and team workload.</p>
-            </a>
-
-            <a href="https://alaynaweimer.github.io/IPC-Internal-Client-Support-Hub/" class="card emerald" target="_blank">
-                <div class="card-icon">🎯</div>
-                <h2>Consulting Hub</h2>
-                <p>All client work in one view. Filter by client, project, lead, or assignee.</p>
-            </a>
-
-            <a href="https://alaynaweimer.github.io/IPC-Task-Marketplace/" class="card sky" target="_blank">
-                <div class="card-icon">🛒</div>
-                <h2>Task Marketplace</h2>
-                <p>Browse available tasks. Find work that matches your skills and availability.</p>
-            </a>
-        </div>
-
-        <div class="footer">
-            <p>Powered by <a href="https://ignitepositivechanges.com" target="_blank">Ignite Positive Changes LLC</a></p>
+    <!-- Rolling Logo Banner -->
+    <div class="logo-banner">
+        <div class="logo-track">
+            <!-- First set of logos -->
+            <div class="logo-item">
+                <img src="images/ipc-logo.png" alt="Ignite Positive Changes">
+            </div>
+            <div class="logo-item">
+                <img src="images/ief-logo.png" alt="Ignite Empowerment Foundation">
+            </div>
+            <div class="logo-item">
+                <img src="images/discover-success.png" alt="Discover Your Success with Alayna Marie">
+            </div>
+            <div class="logo-item">
+                <img src="images/BBP_Logo.png" alt="Bearded Bookseller Press">
+            </div>
+            <!-- Duplicate set for seamless loop -->
+            <div class="logo-item">
+                <img src="images/ipc-logo.png" alt="Ignite Positive Changes">
+            </div>
+            <div class="logo-item">
+                <img src="images/ief-logo.png" alt="Ignite Empowerment Foundation">
+            </div>
+            <div class="logo-item">
+                <img src="images/discover-success.png" alt="Discover Your Success with Alayna Marie">
+            </div>
+            <div class="logo-item">
+                <img src="images/BBP_Logo.png" alt="Bearded Bookseller Press">
+            </div>
         </div>
     </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="icon">✨</div>
+            <h1>IPC Team Hub</h1>
+            <p>Ignite Positive Changes • Your dashboards in one place</p>
+        </header>
+
+        <!-- Schedule with Alayna -->
+        <section class="section">
+            <h2 class="section-title">📅 Schedule Time with Alayna</h2>
+            <div class="scheduling-grid">
+                <a href="https://cal.com/alayna-weimer/15min" target="_blank" class="schedule-btn">
+                    <span class="duration">15</span>
+                    <span class="unit">minutes</span>
+                    <span class="label">Quick Chat</span>
+                </a>
+                <a href="https://cal.com/alayna-weimer/30min" target="_blank" class="schedule-btn">
+                    <span class="duration">30</span>
+                    <span class="unit">minutes</span>
+                    <span class="label">Check-In</span>
+                </a>
+                <a href="https://cal.com/alayna-weimer/60min" target="_blank" class="schedule-btn">
+                    <span class="duration">60</span>
+                    <span class="unit">minutes</span>
+                    <span class="label">Deep Dive</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Dashboards -->
+        <section class="section">
+            <h2 class="section-title">🛠️ Team Dashboards</h2>
+            <div class="cards">
+                <a href="https://alaynaweimer.github.io/IPC-Internal-Program-Tracking-Dashboard/" class="card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <div class="card-title">IPC-IEF Project Tracker</div>
+                        <div class="card-desc">Your business projects across IPC and IEF. Track programs, tasks, and team workload.</div>
+                    </div>
+                    <span class="card-arrow">→</span>
+                </a>
+                <a href="https://alaynaweimer.github.io/IPC-Internal-Client-Support-Hub/" class="card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-content">
+                        <div class="card-title">Consulting Hub</div>
+                        <div class="card-desc">All client work in one view. Filter by client, project, lead, or assignee.</div>
+                    </div>
+                    <span class="card-arrow">→</span>
+                </a>
+                <a href="https://alaynaweimer.github.io/IPC-Task-Marketplace/" class="card">
+                    <div class="card-icon">🛒</div>
+                    <div class="card-content">
+                        <div class="card-title">Task Marketplace</div>
+                        <div class="card-desc">Browse available tasks. Find work that matches your skills and availability.</div>
+                    </div>
+                    <span class="card-arrow">→</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        Powered by <a href="https://ignitepositivechanges.com" target="_blank">Ignite Positive Changes LLC</a>
+    </footer>
 </body>
 </html>
